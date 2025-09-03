@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const store = new DocumentStore(
-    ['http://localhost:8080'],
+    ['http://localhost:8000'],
     'ProjetoBancoDeDados'
 );
 store.initialize();
