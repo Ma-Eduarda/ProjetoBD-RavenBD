@@ -11,8 +11,6 @@ PirataFlix é um projeto Full Stack que permite aos usuários navegar por um cat
   <img align="center" alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/> 
   <img align="center" alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white"/> 
   <img align="center" alt="RavenDB" src="https://img.shields.io/badge/RavenDB-CC0000?style=for-the-badge&logo=raven&logoColor=white"/> 
-  <img align="center" alt="Git" src="https://img.shields.io/badge/Git-F05033?style=for-the-badge&logo=git&logoColor=white"/> 
-  <img align="center" alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/> 
 </div>
 
 ---
