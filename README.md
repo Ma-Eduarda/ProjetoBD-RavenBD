@@ -1,7 +1,7 @@
-# 🎬 Catálogo de Filmes 
-Aplicação web feita em **React** com integração a um backend em **Node.js/Express**. 
-O sistema permite que usuários façam login/cadastro, adicionem filmes à lista de interesse, marquem como assistidos e naveguem pelo catálogo completo de filmes. 
-E o administrador pode fazer CRUD completo de filmes (criar, listar, atualizar, excluir).
+# PirataFlix 🎬
+Uma aplicação web completa para catalogar e gerenciar uma coleção de filmes, com funcionalidades distintas para usuários e administradores.
+
+PirataFlix é um projeto Full Stack que permite aos usuários navegar por um catálogo de filmes, criar uma lista de interesse pessoal (watchlist), marcar filmes como assistidos e, para administradores, gerenciar todo o acervo de filmes através de operações de CRUD (Criar, Ler, Atualizar, Deletar).
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;"> 
   <img align="center" alt="Javascript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/> 
@@ -13,27 +13,47 @@ E o administrador pode fazer CRUD completo de filmes (criar, listar, atualizar, 
   <img align="center" alt="RavenDB" src="https://img.shields.io/badge/RavenDB-CC0000?style=for-the-badge&logo=raven&logoColor=white"/> 
   <img align="center" alt="Git" src="https://img.shields.io/badge/Git-F05033?style=for-the-badge&logo=git&logoColor=white"/> 
   <img align="center" alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/> 
-</div> 
+</div>
 
+---
+
+## 🚀 Funcionalidades Implementadas
+Autenticação de Usuários: Sistema completo de cadastro e login.  
+A sessão do usuário é persistida no localStorage.
+
+### Dois Papéis de Acesso:
+#### Usuário (user):
+
+- Navega pelo catálogo completo de filmes.
+- Adiciona e remove filmes de sua "Lista de Interesse".
+- Move filmes da "Lista de Interesse" para a lista de "Assistidos".
+- Visualiza seu perfil com nome, email e a lista de filmes já assistidos.
+
+#### Administrador (admin):
+- Possui uma tela de administração (/tela-adm) dedicada.
+- Tem permissão total para Adicionar, Editar e Excluir qualquer filme do catálogo.
+
+#### Interface Dinâmica:
+- O layout se adapta com base no login e no papel do usuário.
+- A Home page exibe a lista de interesse do usuário em um carrossel horizontal.
+- Carrossel de destaques na página inicial.
 --- 
 
-### 🚀 Funcionalidades
-- Cadastro e login de usuários
-- Adicionar/remover filmes da lista de interesse 
-- Marcar filmes como assistidos - Visualizar catálogo de filmes
-- Interface responsiva com **React Bootstrap**
+## 🛠  Tecnologias Utilizadas
+O projeto é construído com uma stack moderna de JavaScript, dividido em Backend e Frontend.
 
-### 👩‍💼 Administrador 
-- CRUD completo de filmes (criar, listar, atualizar, excluir)
-- Gerenciar usuários 
-  
---- 
+#### Backend (Servidor)
+- Node.js: Ambiente de execução para o JavaScript no servidor.
+- Express.js: Framework para a construção da API RESTful.
+- RavenDB: Banco de dados NoSQL utilizado para persistir os dados de filmes e usuários.
+- Bcrypt.js: Biblioteca para criptografia e verificação de senhas, garantindo a segurança das credenciais.
+- CORS: Middleware para permitir requisições entre o frontend e o backend.
 
-### 🛠 Tecnologias Utilizadas 
-- **Frontend:** React, React Router DOM, React Bootstrap 
-- **Backend:** Node.js / Express 
--**Banco de Dados:** RavenDB noSQL ou PostgreSQL 
-- **Outros:** Fetch API para comunicação entre front e back
+#### Frontend (Cliente)
+- React.js: Biblioteca para a construção de interfaces de usuário reativas e componentizadas.
+- React Router: Biblioteca para o gerenciamento de rotas e navegação na aplicação (Single Page Application).
+- React Bootstrap: Framework de componentes de UI para um design responsivo e moderno.
+- Fetch API: Utilizada para a comunicação e consumo da API RESTful do backend.
 
 --- 
 
