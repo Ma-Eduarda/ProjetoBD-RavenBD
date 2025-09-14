@@ -1,4 +1,3 @@
-// Importa as bibliotecas necessárias
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -133,7 +132,6 @@ app.delete('/movies/:id', async (req, res) => {
 
 // ------------------- USUÁRIOS -------------------
 
-// cadastro
 app.post('/users/register', async (req, res) => {
     const session = store.openSession();
     try {
@@ -153,13 +151,12 @@ app.post('/users/register', async (req, res) => {
         }
 
         const hashSenha = await bcrypt.hash(senha, 10);
-        const role = nome === "admin" ? "admin" : "user"; //apagar essa gambiarra depois de cadasrastrar o admin. nome : admin, senha: admin, email: admin@gmail.com
-
+        
         const novoUsuario = {
             nome,
             email,
             senha: hashSenha,
-            role, //: user,
+            role : "user",
             listaInteresse: [],
             listaAssistido: [],
             '@metadata': { '@collection': 'Users' }
@@ -168,11 +165,15 @@ app.post('/users/register', async (req, res) => {
         await session.store(novoUsuario);
         await session.saveChanges();
 
+        const userId = session.advanced.getDocumentId(novoUsuario);
+
         res.status(201).json({
-            id: novoUsuario['@metadata']['@id'],
-            nome,
-            email,
-            role: novoUsuario.role
+            id: userId,
+            nome: novoUsuario.nome,
+            email: novoUsuario.email,
+            role: novoUsuario.role,
+            listaInteresse: novoUsuario.listaInteresse || [],
+            listaAssistido: novoUsuario.listaAssistido || []
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -181,7 +182,6 @@ app.post('/users/register', async (req, res) => {
     }
 });
 
-// login
 app.post('/users/login', async (req, res) => {
     const session = store.openSession();
     try {
@@ -213,7 +213,6 @@ app.post('/users/login', async (req, res) => {
     }
 });
 
-// listar todos usuários
 app.get('/users', async (req, res) => {
     const session = store.openSession();
     try {
@@ -239,7 +238,6 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// buscar usuário pelo id
 app.get('/users/:userId', async (req, res) => {
     const session = store.openSession();
     try {
@@ -262,9 +260,6 @@ app.get('/users/:userId', async (req, res) => {
     }
 });
 
-// ------------------- LISTA DE INTERESSES -------------------
-
-// buscar lista de interesses
 app.get('/users/:userId/listaInteresse', async (req, res) => {
     const session = store.openSession();
     try {
@@ -295,7 +290,6 @@ app.get('/users/:userId/listaInteresse', async (req, res) => {
     }
 });
 
-// adicionar filme à lista de interesse
 app.post('/users/:userId/listaInteresse', async (req, res) => {
     const session = store.openSession();
     try {
@@ -320,16 +314,13 @@ app.post('/users/:userId/listaInteresse', async (req, res) => {
     }
 });
 
-// remover filme da lista de interesse
 app.delete('/users/:userId/listaInteresse/:movieId', async (req, res) => {
     const session = store.openSession();
     try {
         const { userId, movieId } = req.params;
         const usuario = await session.load(userId);
         if (!usuario) return res.status(404).json({ error: "Usuário não encontrado" });
-
         usuario.listaInteresse = (usuario.listaInteresse || []).filter(f => f !== movieId);
-
         await session.saveChanges();
         res.json({ listaInteresse: usuario.listaInteresse });
     } catch (err) {
@@ -339,9 +330,6 @@ app.delete('/users/:userId/listaInteresse/:movieId', async (req, res) => {
     }
 });
 
-// ------------------- LISTA DE ASSISTIDOS -------------------
-
-// buscar lista de assistidos
 app.get('/users/:userId/listaAssistido', async (req, res) => {
     const session = store.openSession();
     try {
@@ -369,7 +357,6 @@ app.get('/users/:userId/listaAssistido', async (req, res) => {
     }
 });
 
-// mover filme para assistidos
 app.post('/users/:userId/listaAssistido', async (req, res) => {
     const session = store.openSession();
     try {

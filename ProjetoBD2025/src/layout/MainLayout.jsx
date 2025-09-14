@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav, Dropdown, Button } from "react-bootstrap";
+import { Container, Navbar, Nav, Dropdown, Button, DropdownButton, DropdownToggle, DropdownDivider } from "react-bootstrap";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import IconeUsuario from "../components/InconeUsuario";
@@ -9,6 +9,7 @@ function MainLayout({ user, setUser }) {
   // logout
   const handleLogout = () => {
     setUser(null); 
+    localStorage.removeItem("user");
     navigate("/");
   };
 
@@ -19,7 +20,7 @@ function MainLayout({ user, setUser }) {
           <Navbar.Brand as={Link} to="/">PirataFlix</Navbar.Brand>
           <Nav className="ms-auto">
             {user ? (
-              <Dropdown>
+              <Dropdown data-bs-theme="dark">
                 <Dropdown.Toggle
                   id="dropdown-basic"
                   style={{
@@ -40,8 +41,10 @@ function MainLayout({ user, setUser }) {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as={Link} to="/tela-perfil">Perfil</Dropdown.Item>
+                  <DropdownDivider></DropdownDivider>
                   <Dropdown.Item onClick={handleLogout}>Sair</Dropdown.Item>
                 </Dropdown.Menu>
+                
               </Dropdown>
             ) : (
               <Button as={Link} to="/tela-login" variant="light">

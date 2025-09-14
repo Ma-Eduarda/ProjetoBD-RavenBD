@@ -4,8 +4,8 @@ import './Home.css';
 import Carrossel from './Carrossel';
 
 function Home({ user }) {
-  const [movies, setMovies] = useState([]);
-  const [userMovies, setUserMovies] = useState([]);
+  const [movies, setMovies] = useState([]); 
+  const [userMovies, setUserMovies] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,10 +13,10 @@ function Home({ user }) {
   const fetchUserMovies = async () => {
     if (!user) return;
     try {
-      const resUser = await fetch(`http://localhost:5000/users/${user.id}/listaInteresse`);
-      if (resUser.ok) {
-        const dataUser = await resUser.json();
-        setUserMovies(dataUser);
+      const resUser = await fetch(`http://localhost:5000/users/${user.id}/listaInteresse`); 
+      if (resUser.ok) { 
+        const dataUser = await resUser.json(); 
+        setUserMovies(dataUser); 
       }
     } catch (err) {
       console.error("Erro ao buscar lista do usuário:", err);
@@ -34,15 +34,15 @@ function Home({ user }) {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch("http://localhost:5000/movies");
+        const response = await fetch("http://localhost:5000/movies"); 
         if (!response.ok) throw new Error(`Erro: ${response.statusText}`);
-        const data = await response.json();
-        setMovies(data);
+        const data = await response.json(); 
+        setMovies(data); 
 
-        if (user) {
-          await fetchUserMovies();
+        if (user) { 
+          await fetchUserMovies(); 
         } else {
-          setUserMovies([]);
+          setUserMovies([]); 
         }
       } catch (err) {
         setError(err.message);
@@ -50,8 +50,8 @@ function Home({ user }) {
         setLoading(false);
       }
     };
-    fetchMovies();
-  }, [user]);
+    fetchMovies(); 
+  }, [user]); 
 
   if (loading) {
     return (
@@ -75,22 +75,22 @@ function Home({ user }) {
   };
 
   // Adicionar filme à lista
-  const handleAdicionarNaLista = async (movie) => {
+  const handleAdicionarNaLista = async (movie) => { 
     if (!user) {
       alert("Faça login para adicionar filmes à sua lista!");
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/users/${user.id}/listaInteresse`, {
-        method: "POST",
+      const response = await fetch(`http://localhost:5000/users/${user.id}/listaInteresse`, { 
+        method: "POST", 
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ movieId: movie.id }),
+        body: JSON.stringify({ movieId: movie.id }), 
       });
 
       if (!response.ok) throw new Error("Erro ao adicionar filme");
 
-      await fetchUserMovies();
+      await fetchUserMovies(); 
       alert(`"${movie.titulo}" adicionado à sua lista!`);
     } catch (err) {
       alert(err.message);
@@ -98,17 +98,17 @@ function Home({ user }) {
   };
 
   // remover filme da lista
-  const handleRemoverDaLista = async (movie) => {
+  const handleRemoverDaLista = async (movie) => { 
     if (!user) return;
     try {
       const response = await fetch(
-        `http://localhost:5000/users/${user.id}/listaInteresse/${movie.id}`,
+        `http://localhost:5000/users/${user.id}/listaInteresse/${movie.id}`, 
         { method: "DELETE" }
       );
 
       if (!response.ok) throw new Error("Erro ao remover filme");
 
-      await fetchUserMovies();
+      await fetchUserMovies(); 
       alert(`"${movie.titulo}" removido da sua lista!`);
     } catch (err) {
       alert(err.message);
@@ -116,18 +116,18 @@ function Home({ user }) {
   };
 
   // marcar como assistido
-  const handleAssistido = async (movie) => {
+  const handleAssistido = async (movie) => { 
     if (!user) return;
     try {
-      const response = await fetch(`http://localhost:5000/users/${user.id}/listaAssistido`, {
-        method: "POST",
+      const response = await fetch(`http://localhost:5000/users/${user.id}/listaAssistido`, { 
+        method: "POST", 
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ movieId: movie.id }),
+        body: JSON.stringify({ movieId: movie.id }), 
       });
 
       if (!response.ok) throw new Error("Erro ao mover para assistidos");
 
-      await fetchUserMovies(); // atualiza lista de interesse
+      await fetchUserMovies(); 
       alert(`"${movie.titulo}" foi marcado como assistido!`);
     } catch (err) {
       alert(err.message);
@@ -138,13 +138,14 @@ function Home({ user }) {
     <Container className="p-4">
       <Carrossel />
       {/* Lista do usuário */}
-      {user && userMovies.length > 0 && (
+      {user && userMovies.length > 0 && ( 
         <>
+        <hr />
           <h5 className="mb-3">Sua Lista</h5>
           <Row className="flex-nowrap overflow-auto g-2 pb-3">
-            {userMovies.map((movie) => (
+            {userMovies.map((movie) => ( 
               <Col key={movie.id} xs={6} md={3} lg={2}>
-                <Card className="user-list-card">
+                <Card className="user-list-card h-100">
                   {movie.imagem && (
                     <Card.Img variant="top" src={movie.imagem} />
                   )}
@@ -173,6 +174,7 @@ function Home({ user }) {
         </>
       )}
 
+      <hr></hr>
       {/* Catálogo */}
       <h5 className="mt-4 mb-4">Catálogo</h5>
       <Row className="g-3">
@@ -189,7 +191,7 @@ function Home({ user }) {
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{movie.titulo || "Sem título"}</Card.Title>
                 <Card.Text className="flex-grow-1">
-                  {truncateText(movie.sinopse, 100)}
+                  {truncateText(movie.sinopse, 50)}
                 </Card.Text>
                 <Card.Text>
                   <strong>Gêneros:</strong> {(movie.generos || []).join(", ")}

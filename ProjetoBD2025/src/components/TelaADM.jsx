@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Container, Spinner, Alert, Card, Row, Col } from 'react-bootstrap';
+import Carrossel from './Carrossel';
+import './Home.css';
 
 function TelaADM() {
   
@@ -145,12 +147,15 @@ function TelaADM() {
 
   return (
     <Container className="p-4">
+      <Carrossel />
+
       <div className="d-flex justify-content-end mb-3">
         <Button variant="primary" onClick={handleShowAdicionar}>+ Adicionar Filme</Button>
       </div>
-
+      
+      <h5 className="mt-4 mb-4">Catálogo</h5>
       {/* Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={() => setShowModal(false)} className='modal'>
         <Modal.Header closeButton>
           <Modal.Title>{editarFilme ? 'Editar Filme' : 'Adicionar Filme'}</Modal.Title>
         </Modal.Header>

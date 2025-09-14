@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import Home from "./components/Home";
@@ -15,6 +15,13 @@ function App() {
       navigate("/tela-adm");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <Routes>

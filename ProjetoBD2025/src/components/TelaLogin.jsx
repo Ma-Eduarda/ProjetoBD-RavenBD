@@ -29,7 +29,8 @@ function TelaLogin({ setUser }) {
             }
 
             const data = await res.json();
-            setUser(data); // já vem completo com listaInteresse e listaAssistido
+            setUser(data); 
+            localStorage.setItem("user", JSON.stringify(data));
             navigate("/");
         } catch (err) {
             alert(err.message);
@@ -52,14 +53,8 @@ function TelaLogin({ setUser }) {
             }
 
             const data = await res.json();
-
-            // Garante que novo usuário tenha arrays iniciais
-            setUser({
-                ...data,
-                listaInteresse: [],
-                listaAssistido: []
-            });
-
+            setUser(data);
+            localStorage.setItem("user", JSON.stringify(data));
             navigate("/");
         } catch (err) {
             alert(err.message);
@@ -72,6 +67,8 @@ function TelaLogin({ setUser }) {
                 className="card-login"
                 onSubmit={modoCadastro ? handleCadastro : handleLogin}
             >
+                <h4> {modoCadastro ? "Cadastre-se" : "Login"} </h4>
+                <hr />
                 {modoCadastro && (
                     <Form.Group className="mb-3">
                         <Form.Label>Nome</Form.Label>

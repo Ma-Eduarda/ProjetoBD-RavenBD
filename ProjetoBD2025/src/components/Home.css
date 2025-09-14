@@ -65,3 +65,8 @@ body {
   font-size: 0.8rem;
 }
 
+
+.modal .modal-content {
+  background-color: #494949;
+  color: white;
+}

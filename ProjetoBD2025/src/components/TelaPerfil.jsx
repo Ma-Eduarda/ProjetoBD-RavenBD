@@ -77,7 +77,7 @@ function TelaPerfil({ user }) {
       {!loading && !error && (
         <>
           {assistidos.length === 0 ? (
-            <p className="text-muted">
+            <p>
               Você ainda não marcou nenhum filme como assistido.
             </p>
           ) : (
