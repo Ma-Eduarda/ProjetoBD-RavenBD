@@ -57,7 +57,9 @@ npm run server
 Este projeto utiliza **RavenDB** (pode ser trocado por PostgreSQL).
 - Instale e rode o RavenDB localmente na porta padrão (http://localhost:8080)
 - Crie um banco de dados chamado filmesdb
-- Configure a conexão no backend (.env): RAVEN_URL=http://localhost:8080 RAVEN_DB=filmesdb
+- Configure a conexão no backend  
+(.env): RAVEN_URL=http://localhost:8080  
+RAVEN_DB=filmesdb
 
 ---
 
